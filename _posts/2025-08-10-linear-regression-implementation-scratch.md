@@ -6,7 +6,7 @@ tags: [linear regression, pytorch]
 math: true
 ---
 
-In this post, we will implement **Linear Regression** from scratch using Pytorch. This will help us understand the underlying mechanics of the algorithm and how it can be applied to real-world datasets.
+In this post, we will implement **Linear Regression** from scratch using Pytorch. This will help us understand the underlying mechanics of this algorithm and how it can be applied to real-world datasets.
 
 ## Implementation
 
@@ -19,7 +19,7 @@ import random
 
 ### 2. Initializing parameters
 
-Let's initialize the model parameters (weights and bias) that we will optimize during training.
+Let's create a function to initialize the model parameters (weights and bias) that we will optimize during training.
 
 ```python
 def init_params(num_features: int) -> tuple[torch.Tensor, torch.Tensor]:
@@ -28,8 +28,7 @@ def init_params(num_features: int) -> tuple[torch.Tensor, torch.Tensor]:
     Args:
         num_features (int): The number of features (input dimensions).
     Returns:
-        tuple[torch.Tensor, torch.Tensor]: The initialized Weight tensor (W) and bias tensor (b).
-        Shape of w: (num_features, 1), Shape of b: (1,)
+        tuple[torch.Tensor, torch.Tensor]: The initialized Weight tensor w (num_features, 1) and bias tensor b (1,).
     """
     w = torch.normal(0, 0.01, size=(num_features, 1), requires_grad=True)
     b = torch.zeros(1, requires_grad=True)
