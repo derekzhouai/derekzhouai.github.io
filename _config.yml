@@ -16,7 +16,7 @@ timezone: "Asia/Singapore"
 
 title: Derek Zhou # the main title
 
-tagline: A place for AI learning and sharing  # it will display as the subtitle
+tagline: A place for AI learning and sharing.  # it will display as the subtitle
 
 description: >- # used by seo meta and the atom feed
   Welcome to my AI blog where I share insights, tutorials, and the 

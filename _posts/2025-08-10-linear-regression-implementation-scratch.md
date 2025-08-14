@@ -6,7 +6,7 @@ tags: [linear regression, pytorch]
 math: true
 ---
 
-In this post, we will implement **Linear Regression** from scratch using Pytorch. This will help us understand the underlying mechanics of this algorithm and how it can be applied to real-world datasets.
+In this post, we will implement **Linear Regression** from scratch using Pytorch. This will help us understand the underlying mechanics of this algorithm and how it can be applied to a synthetic dataset.
 
 ## Implementation
 
