@@ -25,10 +25,10 @@ description: >- # used by seo meta and the atom feed
 
 # Fill in the protocol & hostname for your site.
 # E.g. 'https://username.github.io', note that it does not end with a '/'.
-url: "https://derekzhou-ai.github.io"
+url: "https://derekzhouai.github.io"
 
 github:
-  username: derekzhou-ai # change to your GitHub username
+  username: derekzhouai # change to your GitHub username
 
 # twitter:
 #   username: twitter_username # change to your Twitter username
@@ -41,7 +41,7 @@ social:
   links:
     # The first element serves as the copyright owner's link
     - https://www.linkedin.com/in/dengfeng-zhou-72160640
-    - https://github.com/derekzhou-ai # change to your GitHub homepage
+    - https://github.com/derekzhouai # change to your GitHub homepage
 
 # Site Verification Settings
 webmaster_verifications:
