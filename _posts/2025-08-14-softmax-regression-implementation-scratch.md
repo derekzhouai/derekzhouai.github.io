@@ -262,3 +262,6 @@ train(train_iter, test_iter, W, b, num_epochs, batch_size, lr)
 
 In this implementation, we have built a softmax regression model from scratch using PyTorch. We defined the model, loss function, and optimization algorithm, and trained the model with the Fashion MNIST dataset using mini-batch stochastic gradient descent. The training process involved iterating over the data, computing predictions, calculating loss, and updating the model parameters. After training for a few epochs, we observed a significant reduction in loss, indicating that the model was learning to fit the data.
 
+## References
+
+- [Linear Neural Networks for Classification](https://d2l.ai/chapter_linear-classification/index.html)

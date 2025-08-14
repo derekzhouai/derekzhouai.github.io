@@ -87,3 +87,7 @@ for epoch in range(num_epochs):
 ## Summary
 
 After using Pytorch built-in functionalities, we were able to implement linear regression more concisely and efficiently. The high-level APIs provided by Pytorch allowed us to focus on the model architecture and training loop without worrying about the low-level details of tensor operations and gradient calculations. However, understanding these low-level details is still important for debugging and optimizing models.
+
+## References
+
+- [Linear Neural Networks for Regression](https://d2l.ai/chapter_linear-regression/index.html)

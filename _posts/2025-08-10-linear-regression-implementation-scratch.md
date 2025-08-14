@@ -204,3 +204,6 @@ train(features, labels, w, b, num_epochs, batch_size, lr)
 
 In this implementation, we have built a linear regression model from scratch using PyTorch. We defined the model, loss function, and optimization algorithm, and trained the model with synthetic data using mini-batch stochastic gradient descent. The training process involved iterating over the data, computing predictions, calculating loss, and updating the model parameters. After training for a few epochs, we observed a significant reduction in loss, indicating that the model was learning to fit the data.
 
+## References
+
+- [Linear Neural Networks for Regression](https://d2l.ai/chapter_linear-regression/index.html)
