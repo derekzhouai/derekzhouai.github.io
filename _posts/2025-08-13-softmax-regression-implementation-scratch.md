@@ -222,7 +222,9 @@ def train(
 Now we can train our softmax regression model using the Fashion MNIST dataset. We'll iterate through the data in mini-batches, compute predictions, calculate loss, and update the parameters using SGD.
 
 ```python
-num_epochs = 20                             # Number of epochs
+num_inputs, num_outputs = 28 * 28, 10       # Number of input features and output classes
+
+num_epochs = 10                             # Number of epochs
 batch_size = 256                            # Number of samples per batch
 lr = 0.1                                    # Learning rate
 W, b = init_params(num_inputs, num_outputs) # Parameters
@@ -233,26 +235,16 @@ train_iter, test_iter = load_data_fashion_mnist(batch_size)
 # Train the model
 train(train_iter, test_iter, W, b, num_epochs, batch_size, lr)
 
-# Epoch 1, Loss: 0.7122, Test Accuracy: 0.7902
-# Epoch 2, Loss: 0.4542, Test Accuracy: 0.7935
-# Epoch 3, Loss: 0.5110, Test Accuracy: 0.8175
-# Epoch 4, Loss: 0.7533, Test Accuracy: 0.8138
-# Epoch 5, Loss: 0.6161, Test Accuracy: 0.8229
-# Epoch 6, Loss: 0.6179, Test Accuracy: 0.8154
-# Epoch 7, Loss: 0.4202, Test Accuracy: 0.8292
-# Epoch 8, Loss: 0.5256, Test Accuracy: 0.8307
-# Epoch 9, Loss: 0.5443, Test Accuracy: 0.8273
-# Epoch 10, Loss: 0.3315, Test Accuracy: 0.8255
-# Epoch 11, Loss: 0.4675, Test Accuracy: 0.8351
-# Epoch 12, Loss: 0.4587, Test Accuracy: 0.8281
-# Epoch 13, Loss: 0.3656, Test Accuracy: 0.8322
-# Epoch 14, Loss: 0.4578, Test Accuracy: 0.8307
-# Epoch 15, Loss: 0.4928, Test Accuracy: 0.8342
-# Epoch 16, Loss: 0.3618, Test Accuracy: 0.8321
-# Epoch 17, Loss: 0.4140, Test Accuracy: 0.8275
-# Epoch 18, Loss: 0.4122, Test Accuracy: 0.8163
-# Epoch 19, Loss: 0.5945, Test Accuracy: 0.8345
-# Epoch 20, Loss: 0.6044, Test Accuracy: 0.8416
+# Epoch 1, Loss: 0.5702, Test Accuracy: 0.7934
+# Epoch 2, Loss: 0.5597, Test Accuracy: 0.7986
+# Epoch 3, Loss: 0.4802, Test Accuracy: 0.8180
+# Epoch 4, Loss: 0.4342, Test Accuracy: 0.8152
+# Epoch 5, Loss: 0.4613, Test Accuracy: 0.8299
+# Epoch 6, Loss: 0.5082, Test Accuracy: 0.8279
+# Epoch 7, Loss: 0.5834, Test Accuracy: 0.8253
+# Epoch 8, Loss: 0.4803, Test Accuracy: 0.8306
+# Epoch 9, Loss: 0.4344, Test Accuracy: 0.8318
+# Epoch 10, Loss: 0.4029, Test Accuracy: 0.8310
 ```
 
 > As the parameters (w, b) were initialized randomly, the loss and accuracy may vary between different runs.

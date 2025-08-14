@@ -1,6 +1,6 @@
 ---
 title:  "Linear Regression Concise Implementation (Pytorch)"
-date:   2025-08-13 16:00:00 +0800
+date:   2025-08-12 16:00:00 +0800
 categories: [deep learning]
 tags: [linear regression, pytorch]
 math: true
@@ -9,6 +9,14 @@ math: true
 In the [previous post](/posts/linear-regression-implementation-scratch/), we implement linear regression from scratch by defining the model, loss function, and optimizer by ourself. Actually, we can leverage Pytorch's built-in functionalities to achieve the same goal more concisely.
 
 ## Implementation
+
+### Importing the libraries
+
+```python
+import torch
+from torch import nn
+from torch.utils import data
+```
 
 ### Generating synthetic data
 
@@ -39,33 +47,30 @@ num_samples = 1000  # Number of samples
 features, labels = synthetic_data(true_w, true_b, num_samples)
 ```
 
-### Model training
+```python
+batch_size = 10
+dataset = data.TensorDataset(features, labels)
+data_iter = data.DataLoader(dataset, batch_size=batch_size, shuffle=True)
+```
+
+### Training the model
 
 ```python
-# 1. Importing libraries
-import torch
-from torch import nn
-from torch.utils import data
-
-# 2. Creating a DataLoader for our dataset
-dataset = data.TensorDataset(features, labels)
-data_iter = data.DataLoader(dataset, batch_size=10, shuffle=True)
-
-# 3. Defining the model
+# 1. Defining the model
 num_features = features.shape[1]
-model = nn.Linear(num_features, 1)
+net = nn.Linear(num_features, 1)
 
-# 4. Initializing weights and bias
-model.weight.data.normal_(0, 0.01)
-model.bias.data.fill_(0)
+# 2. Initializing the parameters
+net.weight.data.normal_(0, 0.01)
+net.bias.data.fill_(0)
 
-# 5. Defining the loss function
+# 3. Defining the loss function
 loss = nn.MSELoss()
 
-# 6. Defining the optimizer
-optimizer = torch.optim.SGD(model.parameters(), lr=0.03)
+# 4. Defining the optimizer
+optimizer = torch.optim.SGD(net.parameters(), lr=0.03)
 
-# 7. Training the model
+# 5. Training the model
 num_epochs = 3
 for epoch in range(num_epochs):
     for X, y in data_iter:
