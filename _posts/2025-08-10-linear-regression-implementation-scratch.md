@@ -1,7 +1,7 @@
 ---
 title:  "Linear Regression Implementation from Scratch (Pytorch)"
 date:   2025-08-10 11:00:00 +0800
-categories: [deep learning]
+categories: [supervised learning, deep learning]
 tags: [linear regression, pytorch]
 math: true
 ---

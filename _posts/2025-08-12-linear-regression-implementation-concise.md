@@ -1,7 +1,7 @@
 ---
 title:  "Linear Regression Concise Implementation (Pytorch)"
 date:   2025-08-12 16:00:00 +0800
-categories: [deep learning]
+categories: [supervised learning, deep learning]
 tags: [linear regression, pytorch]
 math: true
 ---
