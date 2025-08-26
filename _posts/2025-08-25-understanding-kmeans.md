@@ -8,11 +8,11 @@ math: true
 
 Clustering is one of most important techniques in unsupervised learning. Among various clustering algorithms, **K-Means** stands out as one of the simplest and most widely used method. It partitions data into groups (called clusters) such that points in the same cluster are more similar to each other than to those in other clusters.
 
-In this post, we'll walk through **intuition, algorithm steps, mathematical formulation**, and even a **Python implementation** of K-Means clustering.
+In this post, we'll walk through **intuition, algorithm steps, mathematical formulation**, and even a **Python implementation** of K-Means.
 
 ## Intuition Behind K-Means
 
-The goal of K-Means is to find **k clusters (centroids)** and assign each data point to the closest center. By doing so, we minimize the overall variance within clusters.
+The goal of K-Means is to find **k clusters (centroids)** and assign each data point to the closest center (centroid). By doing so, we minimize the overall variance within clusters.
 
 Think of it as repeatedly shuffling data points between different groups until the groups are as "tight" as possible.
 
@@ -20,7 +20,7 @@ Think of it as repeatedly shuffling data points between different groups until t
 
 1. **Choose the number of clusters, k**<br>
 This is a hyperparameter you decide before running the algorithm.
-2. **Initialize centers**<br>
+2. **Initialize cluster centroids**<br>
 Randomly select k points from the dataset as initial centroids.
 3. **Assignment step**<br>
 For each point, compute the distance to all centroids and assign it to the closest one.
@@ -52,15 +52,17 @@ Here's a concise pseudocode for K-Means:
 
 ```
 Input: dataset X, number of clusters k
-Output: cluster centers μ, cluster assignments
+Output: cluster centroids μ, cluster assignments
 
-1. Randomly initialize k cluster centers μ
+1. Randomly initialize k cluster centroids μ
 2. Repeat until convergence:
-   a. Assign each data point to the closest cluster center μ
-   b. Update cluster centers μ by computing the mean of all points in each cluster
+   a. Assign each data point to the closest cluster centroid μ
+   b. Update cluster centroids μ by computing the mean of all points in each cluster
 ```
 
 ## Python Implementation (From Scratch)
+
+You can find the full code from [here](https://github.com/derekzhouai/derekzhou-ai-blog-code/blob/main/understanding_kmeans.ipynb).
 
 ```python
 import numpy as np
@@ -127,4 +129,4 @@ This will produce a scatter plot with data points colored by cluster, and red X 
 
 ## Conclusion
 
-K-Means clustering is a fundamental and powerful technique for partitioning data. Its simplicity makes it a great first choice for unsupervised learning tasks, though it has limitations. By understanding how it works under the hood-and even implementing it from scratch-you can gain a much deeper intuition that goes beyond just using it as a black box.
+K-Means clustering is a fundamental and powerful technique for partitioning data. Its simplicity makes it a great first choice for unsupervised learning tasks, though it has limitations. By understanding how it works under the hood - and even implementing it from scratch - you can gain a much deeper intuition that goes beyond just using it as a black box.
