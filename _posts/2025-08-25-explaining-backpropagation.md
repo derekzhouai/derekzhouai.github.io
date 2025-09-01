@@ -6,9 +6,19 @@ tags: [gradient descent, backpropagation, MLP]
 math: true
 ---
 
-Backpropagation is the key algorithm that makes training deep neural networks possible.
+**Backpropagation is the key algorithm that makes training deep neural networks feasible.** It provides a systematic way to compute the gradients of loss function with respect to all weights and biases in the network. These gradients are then used by optimization methods such as **gradient descent** to update the parameters and minimize the loss.
 
-In this post, I'll walk step by step through **a simple two-layer neural network** (one hidden layer with sigmoid activation and one linear output layer) to illustrate how the forward and backward passes work.
+In other words, backpropagation answers the key question in training:
+> *How should each weight change to make the model's predictions closer to the target?*
+
+## Why Backpropagation?
+
+Training a neural network involves two main steps:
+1. **Forward pass** - compute predictions by apply weights, biases, and activations.
+2. **Backward pass (Backpropagation)** - propagate the error backward through the network, layer by layer, to compute the gradients efficiently using the chain rule of calculus.
+
+Without backpropagation, training deep networks would be computationally infeasible, since computing derivatives naively for each parameter would be prohibitively expensive. Backpropagation makes gradient computation efficient by **reusing intermediate results** from the forward pass.
+
 
 ## Two-Layer Network
 
