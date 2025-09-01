@@ -17,11 +17,11 @@ In this post, we'll break down backpropagation from intuition to mathematics, wa
 ## Neural Network Basics
 
 Before diving into backpropagation, let's quickly review how a neural network works.
-- **Neuron model**: Each neuron computes $z = W \cdot x + b, a = g(z)$
+- **Neuron model**: Each neuron computes $z = W \cdot x + b, a = \sigma(z)$
     - $x$ is the input
     - $W$ is the weight vector
     - $b$ is the bias term
-    - $g$ is the activation function
+    - $\sigma$ is the activation function
 - **Forward propagation**: Input flows layer by layer through the network, producing the final output $\hat{y}$.
 - **Loss function**: Measures the difference between the predicted output $\hat{y}$ and the true target $y$. For example, mean squared error (MSE): $L = \frac{1}{2}(y - \hat{y})^2$
 
@@ -46,48 +46,6 @@ Backpropagation is essentially an application of the chain rule from calculus:
 $$\frac{dL}{dx} = \frac{dL}{dy} \cdot \frac{dy}{dx}$$
 
 This allows us to "pass back" the error derivatives through the network layer by layer.
-
-### Single-Layer Networks
-
-![](/assets/img/posts/single_layer_network.png){: width="500" .normal}
-
-Suppose:
-
-$$z = w \cdot x + b, \quad a = g(z), \quad L = \text{Loss}(a, y)$$
-
-Then derivatives of loss with respect to the parameters:
-
-$$\frac{\partial L}{\partial w} = \frac{\partial L}{\partial a} \cdot \frac{\partial a}{\partial z} \cdot \frac{\partial z}{\partial w}$$
-
-$$\frac{\partial L}{\partial b} = \frac{\partial L}{\partial a} \cdot \frac{\partial a}{\partial z} \cdot \frac{\partial z}{\partial b}$$
-
-### Multi-Layer Networks
-
-![](/assets/img/posts/two_layers_neural_network.png){: width="800" .normal}
-
-Here we used two layers neural network as an example to illustrate how it works for multi-layer networks.
-
-For layer $1$, we have:
-
-$$z[1] = W[1] \cdot x + b[1], \quad a[1] = g(z[1])$$
-
-layer $2$, we have:
-
-$$z[2] = W[2] \cdot a[1] + b[2], \quad a[2] = g(z[2])$$
-
-and loss function:
-
-$$L = \text{Loss}(a[2], y)$$
-
-Then derivatives of the loss with respect to the parameters:
-
-$$\frac{\partial L}{\partial W[2]} = \frac{\partial L}{\partial a[2]} \cdot \frac{\partial a[2]}{\partial z[2]} \cdot \frac{\partial z[2]}{\partial W[2]}$$
-
-$$\frac{\partial L}{\partial b[2]} = \frac{\partial L}{\partial a[2]} \cdot \frac{\partial a[2]}{\partial z[2]} \cdot \frac{\partial z[2]}{\partial b[2]}$$
-
-$$\frac{\partial L}{\partial W[1]} = \frac{\partial L}{\partial a[2]} \cdot \frac{\partial a[2]}{\partial z[2]} \cdot \frac{\partial z[2]}{\partial a[1]} \cdot \frac{\partial a[1]}{\partial z[1]} \cdot \frac{\partial z[1]}{\partial W[1]}$$
-
-$$\frac{\partial L}{\partial b[1]} = \frac{\partial L}{\partial a[2]} \cdot \frac{\partial a[2]}{\partial z[2]} \cdot \frac{\partial z[2]}{\partial a[1]} \cdot \frac{\partial a[1]}{\partial z[1]} \cdot \frac{\partial z[1]}{\partial b[1]}$$
 
 ## Backpropagation Algorithm
 
