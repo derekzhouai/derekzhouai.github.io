@@ -1,7 +1,7 @@
 ---
 title:  "Understanding K-Means Clustering in Machine Learning"
 date:   2025-08-27 10:00:00 +0800
-categories: [unsupervised learning, clustering]
+categories: [Unsupervised Learning]
 tags: [k-means]
 math: true
 ---

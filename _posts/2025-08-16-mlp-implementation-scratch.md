@@ -1,7 +1,7 @@
 ---
 title:  "Multilayer Perceptrons Implementation from Scratch (Pytorch)"
 date:   2025-08-16 13:00:00 +0800
-categories: [supervised learning, deep learning]
+categories: [MLP]
 tags: [multilayer perceptrons, pytorch]
 math: true
 image:

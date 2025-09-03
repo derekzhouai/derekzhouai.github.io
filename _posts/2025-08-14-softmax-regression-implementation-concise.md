@@ -1,7 +1,7 @@
 ---
 title:  "Softmax Regression Concise Implementation (Pytorch)"
 date:   2025-08-14 11:00:00 +0800
-categories: [supervised learning, deep learning]
+categories: [Linear Models]
 tags: [softmax regression, pytorch]
 math: true
 ---

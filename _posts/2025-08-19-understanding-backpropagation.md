@@ -1,7 +1,7 @@
 ---
 title:  "Understanding Backpropagation in Neural Networks"
 date:   2025-08-19 20:00:00 +0800
-categories: [supervised learning, deep learning]
+categories: [MLP]
 tags: [gradient descent]
 math: true
 ---

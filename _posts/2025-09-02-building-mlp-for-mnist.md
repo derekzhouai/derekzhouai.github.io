@@ -48,6 +48,8 @@ print(f"Number of test samples: {len(test_data)}")
 
 ## 4. Model Architecture
 
+![](./assets/img/posts/20250902_mlp_architecture.png){: width="400" .normal }
+
 Our MLP will use:
 - One hidden layer with **256 neurons**.
 - **ReLU activation** for non-linearity.

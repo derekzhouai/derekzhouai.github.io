@@ -1,8 +1,8 @@
 ---
 title:  "Explaining Backpropagation with Example"
 date:   2025-08-25 20:00:00 +0800
-categories: [supervised learning, deep learning]
-tags: [gradient descent, backpropagation, MLP]
+categories: [MLP]
+tags: [gradient descent, backpropagation, mlp]
 math: true
 ---
 
