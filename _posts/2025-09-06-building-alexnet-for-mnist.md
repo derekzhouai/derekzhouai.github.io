@@ -66,6 +66,8 @@ print(f"Number of test samples: {len(test_data)}")
 
 ## 5. Model Architecture
 
+![](/assets/img/posts/20250905_alexnet_architecture.png)
+
 Here’s an AlexNet-inspired model adapted for MNIST:
 
 ```python
