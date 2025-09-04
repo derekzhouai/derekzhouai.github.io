@@ -101,14 +101,14 @@ class LeNet5(nn.Module):
 ```
 
 **Number of parameters**: 
-- Convolutional layers: 
-  - Conv1: (5 * 5 * 1 * 6) + 6 = 156
-  - Conv2: (5 * 5 * 6 * 16) + 16 = 2,416
-- Fully connected layers:
-  - FC1: (400 * 120) + 120 = 48,120
-  - FC2: (120 * 84) + 84 = 10,164
+- Convolutional layers: 156 + 2,416 = 2,572
+  - Conv#1: (5 * 5 * 1 * 6) + 6 = 156
+  - Conv#2: (5 * 5 * 6 * 16) + 16 = 2,416
+- Fully connected layers: 48,120 + 10,164 + 850 = 59,134
+  - FC#1: (400 * 120) + 120 = 48,120
+  - FC#2: (120 * 84) + 84 = 10,164
   - Output: (84 * 10) + 10 = 850
-- **Total**: 156 + 2,416 + 48,120 + 10,164 + 850 = 61,706
+- Total: 2,572 + 59,134 = **61,706**
 
 > This model has **~60k parameters**, far fewer than the MLP's ~200k, but it performs better because convolutional layers reuse filters across spatial locations.
 
