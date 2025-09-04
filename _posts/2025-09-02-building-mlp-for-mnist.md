@@ -203,6 +203,6 @@ plt.show()
 
 We built a simple MLP for MNIST digit classification. While it performs strongly, it has limitations that motivate the use of **Convolutional Neural Networks (CNNs)**, which are designed to capture spatial features in images.
 
-👉 In the next post, we’ll implement **LeNet-5**, one of the earliest CNN architectures, and compare it to our MLP baseline.
+👉 In the next post, we’ll implement [**LeNet-5**](/posts/building-lenet5-for-mnist/), one of the earliest CNN architectures, and compare it to our MLP baseline.
 
 [GitHub Code](https://github.com/derekzhouai/derekzhou-ai-blog-code/blob/main/mnist_mlp.ipynb)
