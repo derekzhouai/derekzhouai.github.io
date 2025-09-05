@@ -1,6 +1,6 @@
 ---
 title:  "Building an AlexNet for MNIST Classification"
-date:   2025-09-04 19:00:00 +0800
+date:   2025-09-05 10:00:00 +0800
 categories: [Neural Networks on MNIST]
 tags: [alexnet, mnist]
 math: true
