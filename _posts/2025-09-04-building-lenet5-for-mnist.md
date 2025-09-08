@@ -27,13 +27,13 @@ LeNet-5 was proposed in 1998 by **Yann LeCun** and colleagues for handwritten di
 
 **Original architecture**:
 - Input: 32x32 grayscale image
-- Conv1: 6 filters of size 5x5, stride 1 → 28x28x6
-- Pool1: 2x2 average pooling, stride 2 → 14x14x6
-- Conv2: 16 filters of size 5x5, stride 1 → 10x10x16
-- Pool2: 2x2 average pooling, stride 2 → 5x5x16
-- Flatten: 5x5x16 → 400
-- FC1: 120 units
-- FC2: 84 units
+- Conv#1: 6 filters of size 5x5, stride 1 → 6x28x28
+- Pool#1: 2x2 average pooling, stride 2 → 6x14x14
+- Conv#2: 16 filters of size 5x5, stride 1 → 16x10x10
+- Pool#2: 2x2 average pooling, stride 2 → 16x5x5
+- Flatten: 16x5x5 → 400
+- FC#1: 120 units
+- FC#2: 84 units
 - Output: 10 units (digit classes)
 
 Since MNIST images are 28x28, we'll **pad them to 32x32** before feeding them into the network.
@@ -62,6 +62,7 @@ test_loader = DataLoader(test_data, batch_size=256, shuffle=False)
 print(f"Number of training samples: {len(train_data)}")
 print(f"Number of test samples: {len(test_data)}")
 
+# Output:
 # Number of training samples: 60000
 # Number of test samples: 10000
 ```
@@ -77,15 +78,15 @@ class LeNet5(nn.Module):
     def __init__(self, num_classes=10):
         super().__init__()
         self.net = nn.Sequential(
-            nn.Conv2d(1, 6, kernel_size=5, stride=1),             # 32x32x1 -> 28x28x6
+            nn.Conv2d(1, 6, kernel_size=5, stride=1),             # 1x32x32 -> 6x28x28
             nn.ReLU(),
-            nn.AvgPool2d(kernel_size=2, stride=2),                # 28x28x6 -> 14x14x6
+            nn.AvgPool2d(kernel_size=2, stride=2),                # 6x28x28 -> 6x14x14
 
-            nn.Conv2d(6, 16, kernel_size=5, stride=1),            # 14x14x6 -> 10x10x16
+            nn.Conv2d(6, 16, kernel_size=5, stride=1),            # 6x14x14 -> 16x10x10
             nn.ReLU(),
-            nn.AvgPool2d(kernel_size=2, stride=2),                # 10x10x16 -> 5x5x16
+            nn.AvgPool2d(kernel_size=2, stride=2),                # 16x10x10 -> 16x5x5
 
-            nn.Flatten(),                                         # 5x5x16 -> 400
+            nn.Flatten(),                                         # 16x5x5 -> 400
 
             nn.Linear(400, 120),                                  # 400 -> 120
             nn.ReLU(),
@@ -101,11 +102,11 @@ class LeNet5(nn.Module):
 ```
 
 **Number of parameters**: 
-- Convolutional layers: 156 + 2,416 = 2,572
+- Convolutional layers: 156 + 2,416 = **2,572**
   - Conv#1: (5 * 5 * 1 * 6) + 6 = 156
   - Conv#2: (5 * 5 * 6 * 16) + 16 = 2,416
-- Fully connected layers: 48,120 + 10,164 + 850 = 59,134
-  - FC#1: (400 * 120) + 120 = 48,120
+- Fully connected layers: 48,120 + 10,164 + 850 = **59,134**
+  - FC#1: (16 * 5 * 5 * 120) + 120 = 48,120
   - FC#2: (120 * 84) + 84 = 10,164
   - Output: (84 * 10) + 10 = 850
 - Total: 2,572 + 59,134 = **61,706**
@@ -191,16 +192,17 @@ for epoch in range(epochs):
 ```
 
 ```python
-Epoch 1/10: Train (loss: 0.6650, acc: 0.7823) | Test (loss: 0.1295, acc: 0.9609)
-Epoch 2/10: Train (loss: 0.1157, acc: 0.9645) | Test (loss: 0.0731, acc: 0.9765)
-Epoch 3/10: Train (loss: 0.0775, acc: 0.9761) | Test (loss: 0.0676, acc: 0.9781)
-Epoch 4/10: Train (loss: 0.0597, acc: 0.9814) | Test (loss: 0.0481, acc: 0.9845)
-Epoch 5/10: Train (loss: 0.0495, acc: 0.9848) | Test (loss: 0.0447, acc: 0.9861)
-Epoch 6/10: Train (loss: 0.0415, acc: 0.9866) | Test (loss: 0.0424, acc: 0.9873)
-Epoch 7/10: Train (loss: 0.0363, acc: 0.9884) | Test (loss: 0.0421, acc: 0.9866)
-Epoch 8/10: Train (loss: 0.0299, acc: 0.9899) | Test (loss: 0.0397, acc: 0.9872)
-Epoch 9/10: Train (loss: 0.0274, acc: 0.9913) | Test (loss: 0.0399, acc: 0.9874)
-Epoch 10/10: Train (loss: 0.0248, acc: 0.9919) | Test (loss: 0.0324, acc: 0.9894)
+Output:
+Epoch 1/10: Train (loss: 1.0130, acc: 0.6496) | Test (loss: 0.2075, acc: 0.9345)
+Epoch 2/10: Train (loss: 0.1323, acc: 0.9593) | Test (loss: 0.0860, acc: 0.9727)
+Epoch 3/10: Train (loss: 0.0846, acc: 0.9739) | Test (loss: 0.0684, acc: 0.9796)
+Epoch 4/10: Train (loss: 0.0651, acc: 0.9795) | Test (loss: 0.0619, acc: 0.9795)
+Epoch 5/10: Train (loss: 0.0531, acc: 0.9836) | Test (loss: 0.0460, acc: 0.9855)
+Epoch 6/10: Train (loss: 0.0443, acc: 0.9861) | Test (loss: 0.0465, acc: 0.9856)
+Epoch 7/10: Train (loss: 0.0380, acc: 0.9880) | Test (loss: 0.0403, acc: 0.9876)
+Epoch 8/10: Train (loss: 0.0348, acc: 0.9890) | Test (loss: 0.0474, acc: 0.9850)
+Epoch 9/10: Train (loss: 0.0302, acc: 0.9898) | Test (loss: 0.0399, acc: 0.9879)
+Epoch 10/10: Train (loss: 0.0256, acc: 0.9917) | Test (loss: 0.0361, acc: 0.9898)
 ```
 
 ## 7. Evaluation
