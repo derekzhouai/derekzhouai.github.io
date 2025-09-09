@@ -103,8 +103,8 @@ class LeNet5(nn.Module):
 
 **Number of parameters**: 
 - Convolutional layers: 156 + 2,416 = **2,572**
-  - Conv#1: (5 * 5 * 1 * 6) + 6 = 156
-  - Conv#2: (5 * 5 * 6 * 16) + 16 = 2,416
+  - Conv#1: (1 * 5 * 5 * 6) + 6 = 156
+  - Conv#2: (6 * 5 * 5 * 16) + 16 = 2,416
 - Fully connected layers: 48,120 + 10,164 + 850 = **59,134**
   - FC#1: (16 * 5 * 5 * 120) + 120 = 48,120
   - FC#2: (120 * 84) + 84 = 10,164
