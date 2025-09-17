@@ -8,12 +8,11 @@ math: true
 
 ## 1. Introduction
 
-**LeNet-5** was proposed in 1998 by Yann LeCun and colleagues for handwritten digit recognition. 
-Although computing resources were limited at the time, LeNet-5 was revolutionary: it showed that **convolutional neural networks (CNNs) could outperform traditional machine learning methods** on image recognition tasks.
+**LeNet-5** was proposed in 1998 by Yann LeCun and colleagues for handwritten digit recognition. Although computing resources were limited at the time, LeNet-5 was revolutionary: it showed that **convolutional neural networks (CNNs) could outperform traditional machine learning methods** on image recognition tasks.
 
 This network was originally designed to recognize handwritten digits (MNIST), and its ideas laid the groundwork for modern deep learning.
 
-## 2. Background: What is LeNet-5?
+## 2. LeNet-5 Architecture
 
 ![](./assets/img/posts/20250904_lenet5_architecture.png)
 
@@ -48,36 +47,7 @@ This network was originally designed to recognize handwritten digits (MNIST), an
 
 Since MNIST images are 28x28, we'll **pad them to 32x32** before feeding them into the network.
 
-## 3. Dataset Preparation
-
-We'll use PyTorch and torchvision to load and preprocess the MNIST dataset.
-
-```python
-from torch.utils.data import DataLoader
-from torchvision import datasets, transforms
-
-transform = transforms.Compose([
-    transforms.Pad(2),  # 28x28 → 32x32
-    transforms.ToTensor()
-])
-
-train_data = datasets.MNIST(root="./data", train=True, download=True, transform=transform)
-test_data  = datasets.MNIST(root="./data", train=False, download=True, transform=transform)
-
-train_loader = DataLoader(train_data, batch_size=128, shuffle=True)
-test_loader = DataLoader(test_data, batch_size=256, shuffle=False)
-```
-
-```python
-print(f"Number of training samples: {len(train_data)}")
-print(f"Number of test samples: {len(test_data)}")
-
-# Output:
-# Number of training samples: 60000
-# Number of test samples: 10000
-```
-
-## 4. Model Architecture
+## 3. LeNet-5 Implementation
 
 We'll build a PyTorch version of LeNet-5.
 
@@ -126,6 +96,39 @@ class LeNet5(nn.Module):
   - Output: (84 * 10) + 10 = 850
 - Total: 2,572 + 59,134 = **61,706**
 
+## 4. Dataset Preparation
+
+We'll use PyTorch and torchvision to load and preprocess the MNIST dataset.
+
+```python
+from torch.utils.data import DataLoader
+from torchvision import datasets, transforms
+
+def get_data_loaders(batch_size=128):
+    transform = transforms.Compose([
+        transforms.Pad(2),  # 28x28 → 32x32
+        transforms.ToTensor()
+    ])
+
+    train_dataset = datasets.MNIST(root='./data', train=True, download=True, transform=transform)
+    test_dataset = datasets.MNIST(root='./data', train=False, download=True, transform=transform)
+
+    train_loader = DataLoader(train_dataset, batch_size=batch_size, shuffle=True)
+    test_loader = DataLoader(test_dataset, batch_size=batch_size, shuffle=False)
+
+    return train_loader, test_loader
+```
+
+```python
+train_loader, test_loader = get_data_loaders(batch_size=128)
+print(f"Number of training samples: {len(train_loader.dataset)}")
+print(f"Number of test samples: {len(test_loader.dataset)}")
+
+# Output:
+# Number of training samples: 60000
+# Number of test samples: 10000
+```
+
 ## 5. Training the Model
 
 ```python
@@ -133,8 +136,7 @@ import torch
 
 def evaluate(model, loader, loss, device):
     model.eval()
-    total_loss = 0.0
-    total_correct, total_num = 0, 0
+    total_loss, total_correct, total_num = 0.0, 0, 0
 
     with torch.no_grad():
         for X, y in loader:
@@ -144,15 +146,18 @@ def evaluate(model, loader, loss, device):
             l = loss(y_hat, y)
 
             total_loss += l.item() * X.size(0)
-            preds = y_hat.argmax(dim=1)
-            total_correct += (preds == y).sum().item()
+            total_correct += (y_hat.argmax(dim=1) == y).sum().item()
             total_num += X.size(0)
+            
     return total_loss / total_num, total_correct / total_num
 
-def train(model, train_loader, test_loader, num_epochs, lr, device):
+def train(model, num_epochs, batch_size, lr, device):
     model.to(device)
+    
     optimizer = torch.optim.SGD(model.parameters(), lr=lr)
     loss = nn.CrossEntropyLoss()
+
+    train_loader, test_loader = get_data_loaders(batch_size)
 
     for epoch in range(num_epochs):
         model.train()
@@ -168,8 +173,7 @@ def train(model, train_loader, test_loader, num_epochs, lr, device):
             optimizer.step()
 
             total_loss += l.item() * X.size(0)
-            preds = y_hat.argmax(dim=1)
-            total_correct += (preds == y).sum().item()
+            total_correct += (y_hat.argmax(dim=1) == y).sum().item()
             total_num += X.size(0)
 
         train_loss = total_loss / total_num
@@ -177,8 +181,8 @@ def train(model, train_loader, test_loader, num_epochs, lr, device):
 
         test_loss, test_acc = evaluate(model, test_loader, loss, device)
         print(f"Epoch {epoch+1}/{num_epochs}: "
-              f"Train Loss: {train_loss:.4f}, Train Acc: {train_acc:.4f} | "
-              f"Test Loss: {test_loss:.4f}, Test Acc: {test_acc:.4f}")
+              f"Train => Loss: {train_loss:.4f}, Acc: {train_acc:.4f} | "
+              f"Test => Loss: {test_loss:.4f}, Acc: {test_acc:.4f}")
 ```
 
 ```python
@@ -189,23 +193,24 @@ device = (
 )
 model = LeNet5()
 num_epochs = 10
+batch_size = 128
 lr = 0.5
 
-train(model, train_loader, test_loader, num_epochs, lr, device)
+train(model, num_epochs, batch_size, lr, device)
 ```
 
 ```python
 Output:
-Epoch 1/10: Train Loss: 0.8300, Train Acc: 0.7093 | Test Loss: 0.1049, Test Acc: 0.9671
-Epoch 2/10: Train Loss: 0.0924, Train Acc: 0.9725 | Test Loss: 0.0623, Test Acc: 0.9802
-Epoch 3/10: Train Loss: 0.0580, Train Acc: 0.9825 | Test Loss: 0.0557, Test Acc: 0.9826
-Epoch 4/10: Train Loss: 0.0432, Train Acc: 0.9869 | Test Loss: 0.0711, Test Acc: 0.9778
-Epoch 5/10: Train Loss: 0.0361, Train Acc: 0.9886 | Test Loss: 0.0312, Test Acc: 0.9896
-Epoch 6/10: Train Loss: 0.0297, Train Acc: 0.9906 | Test Loss: 0.0415, Test Acc: 0.9886
-Epoch 7/10: Train Loss: 0.0253, Train Acc: 0.9920 | Test Loss: 0.0473, Test Acc: 0.9858
-Epoch 8/10: Train Loss: 0.0235, Train Acc: 0.9923 | Test Loss: 0.0356, Test Acc: 0.9890
-Epoch 9/10: Train Loss: 0.0202, Train Acc: 0.9936 | Test Loss: 0.0614, Test Acc: 0.9818
-Epoch 10/10: Train Loss: 0.0182, Train Acc: 0.9941 | Test Loss: 0.0418, Test Acc: 0.9866
+Epoch 1/10: Train => Loss: 0.7574, Acc: 0.7415 | Test => Loss: 0.1063, Acc: 0.9684
+Epoch 2/10: Train => Loss: 0.0903, Acc: 0.9726 | Test => Loss: 0.0640, Acc: 0.9799
+Epoch 3/10: Train => Loss: 0.0614, Acc: 0.9808 | Test => Loss: 0.0501, Acc: 0.9838
+Epoch 4/10: Train => Loss: 0.0472, Acc: 0.9855 | Test => Loss: 0.0437, Acc: 0.9868
+Epoch 5/10: Train => Loss: 0.0398, Acc: 0.9872 | Test => Loss: 0.0538, Acc: 0.9824
+Epoch 6/10: Train => Loss: 0.0340, Acc: 0.9891 | Test => Loss: 0.0384, Acc: 0.9884
+Epoch 7/10: Train => Loss: 0.0294, Acc: 0.9909 | Test => Loss: 0.0386, Acc: 0.9886
+Epoch 8/10: Train => Loss: 0.0252, Acc: 0.9920 | Test => Loss: 0.0333, Acc: 0.9898
+Epoch 9/10: Train => Loss: 0.0225, Acc: 0.9929 | Test => Loss: 0.0588, Acc: 0.9818
+Epoch 10/10: Train => Loss: 0.0194, Acc: 0.9935 | Test => Loss: 0.0347, Acc: 0.9901
 ```
 
 ## 6. Testing the Model
@@ -242,7 +247,7 @@ plt.show()
 
 We built and trained a **LeNet-5 model** for MNIST classification. It achieves ~99% accuracy, demonstrating the power of convolutional networks for image tasks.
 
-In the next post, we'll extend CNNs further by experimenting with more advanced architectures like **VGG** and **ResNet**.
+In the next post, we'll extend CNNs further by experimenting with more advanced architectures like **AlexNet**, **VGG** and **ResNet**.
 
 Stay tuned!
 
