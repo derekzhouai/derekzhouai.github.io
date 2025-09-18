@@ -16,34 +16,39 @@ This network was originally designed to recognize handwritten digits (MNIST), an
 
 ![](./assets/img/posts/20250904_lenet5_architecture.png)
 
-**Key ideas in LeNet-5**:
-- **Convolutions**: learn local patterns and features (e.g., edges, textures) that are useful across the image.
-- **Pooling**: reduce dimensionality while maintaining important features.
-- **Fully connected layers**: combine extracted features for classification.
+LeNet-5 is first neural network to use **convolutional layers** to automatically learn spatial hierarchies of features from input images. It has **2 convolutional layers** and **3 fully connected layers**.
 
 ![](/assets/img/posts/20250904_lenet5_architecture_2.png)
 
+And every convolutional layer has **a convolutional operation**, **an activation function**, and **a pooling operation**, while every fully connected layer is made of **a linear operation** and **an activation function** (output layer does not have an activation function).
+
 **Architecture**:
 - Input: 32x32 grayscale image → 1x32x32
-- Layer #1:
+- Conv Layer #1:
     - Conv: 6 filters of size 5x5, stride 1 → 6x28x28
     - Activation: ReLU → 6x28x28
     - Pool: 2x2 average pooling, stride 2 → 6x14x14
-- Layer #2:
+- Conv Layer #2:
     - Conv: 16 filters of size 5x5, stride 1 → 16x10x10
     - Activation: ReLU → 16x10x10
     - Pool: 2x2 average pooling, stride 2 → 16x5x5
-- Layer #3:
+- Flatten: 16x5x5 → 400
+- FC Layer #3:
     - Linear: 120 units → 120
     - Activation: ReLU → 120
-- Layer #4:
+- FC Layer #4:
     - Linear: 84 units → 84
     - Activation: ReLU → 84
-- Layer #5(Output): 
+- FC Layer #5(Output): 
     - Linear: 10 units (digit classes 0-9) → 10
 
 > The original LeNet-5 used sigmoid/tanh activations, but here we will use ReLU for better performance.
 {: .prompt-info }
+
+**Key ideas in LeNet-5**:
+- **Convolutions**: learn local patterns and features (e.g., edges, textures) that are useful across the image.
+- **Pooling**: reduce dimensionality while maintaining important features.
+- **Fully connected layers**: combine extracted features for classification.
 
 ## 3. LeNet-5 Model Implementation
 
@@ -57,27 +62,27 @@ class LeNet5(nn.Module):
         super().__init__()
         self.net = nn.Sequential(
             # Layer #1
-            nn.Conv2d(1, 6, kernel_size=5, stride=1),      # 1x32x32 -> 6x28x28
+            nn.Conv2d(1, 6, kernel_size=5, stride=1),      # 1x32x32 → 6x28x28
             nn.ReLU(),
-            nn.AvgPool2d(kernel_size=2, stride=2),         # 6x28x28 -> 6x14x14
+            nn.AvgPool2d(kernel_size=2, stride=2),         # 6x28x28 → 6x14x14
 
             # Layer #2
-            nn.Conv2d(6, 16, kernel_size=5, stride=1),     # 6x14x14 -> 16x10x10
+            nn.Conv2d(6, 16, kernel_size=5, stride=1),     # 6x14x14 → 16x10x10
             nn.ReLU(),
-            nn.AvgPool2d(kernel_size=2, stride=2),         # 16x10x10 -> 16x5x5
+            nn.AvgPool2d(kernel_size=2, stride=2),         # 16x10x10 → 16x5x5
 
-            nn.Flatten(),                                  # 16x5x5 -> 400
+            nn.Flatten(),                                  # 16x5x5 → 400
 
             # Layer #3
-            nn.Linear(400, 120),                           # 400 -> 120
+            nn.Linear(400, 120),                           # 400 → 120
             nn.ReLU(),
 
             # Layer #4
-            nn.Linear(120, 84),                            # 120 -> 84
+            nn.Linear(120, 84),                            # 120 → 84
             nn.ReLU(),
 
             # Layer #5
-            nn.Linear(84, num_classes)                     # 84 -> 10
+            nn.Linear(84, num_classes)                     # 84 → 10
         )
 
     def forward(self, x):
@@ -129,7 +134,7 @@ print(f"Number of test samples: {len(test_loader.dataset)}")
 # Number of test samples: 10000
 ```
 
-### Training the Model
+### Training Loop
 
 ```python
 import torch
