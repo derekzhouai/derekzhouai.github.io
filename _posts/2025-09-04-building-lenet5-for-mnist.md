@@ -12,13 +12,13 @@ math: true
 
 This network was originally designed to recognize handwritten digits (MNIST), and its ideas laid the groundwork for modern deep learning.
 
-## 2. LeNet-5 Architecture
+## 2. LeNet-5 Model Architecture
 
 ![](./assets/img/posts/20250904_lenet5_architecture.png)
 
 **Key ideas in LeNet-5**:
 - **Convolutions**: learn local patterns and features (e.g., edges, textures) that are useful across the image.
-- **Pooling (subsampling)**: reduce dimensionality while maintaining important features.
+- **Pooling**: reduce dimensionality while maintaining important features.
 - **Fully connected layers**: combine extracted features for classification.
 
 ![](/assets/img/posts/20250904_lenet5_architecture_2.png)
@@ -45,9 +45,7 @@ This network was originally designed to recognize handwritten digits (MNIST), an
 > The original LeNet-5 used sigmoid/tanh activations, but here we will use ReLU for better performance.
 {: .prompt-info }
 
-Since MNIST images are 28x28, we'll **pad them to 32x32** before feeding them into the network.
-
-## 3. LeNet-5 Implementation
+## 3. LeNet-5 Model Implementation
 
 We'll build a PyTorch version of LeNet-5.
 
@@ -96,9 +94,11 @@ class LeNet5(nn.Module):
   - Output: (84 * 10) + 10 = 850
 - Total: 2,572 + 59,134 = **61,706**
 
-## 4. Dataset Preparation
+## 4. LeNet-5 Model Training
 
-We'll use PyTorch and torchvision to load and preprocess the MNIST dataset.
+### Preparing the Data
+
+We'll use PyTorch and torchvision to load and preprocess the MNIST dataset. Since MNIST images are 28x28, we'll **pad them to 32x32** before feeding them into the network.
 
 ```python
 from torch.utils.data import DataLoader
@@ -129,7 +129,7 @@ print(f"Number of test samples: {len(test_loader.dataset)}")
 # Number of test samples: 10000
 ```
 
-## 5. Training the Model
+### Training the Model
 
 ```python
 import torch
@@ -213,7 +213,7 @@ Epoch 9/10: Train => Loss: 0.0225, Acc: 0.9929 | Test => Loss: 0.0588, Acc: 0.98
 Epoch 10/10: Train => Loss: 0.0194, Acc: 0.9935 | Test => Loss: 0.0347, Acc: 0.9901
 ```
 
-## 6. Testing the Model
+## 5. LeNet-5 Model Testing
 
 LeNet-5 typically achieves **~99% accuracy** on MNIST, significantly better than a simple MLP.
 
@@ -237,13 +237,13 @@ plt.show()
 
 ![](./assets/img/posts/20250904_evaluation.png)
 
-## 7. Key Takeaways
+## 6. Key Takeaways
 - LeNet-5 outperforms simple MLP on MNIST, reaching ~99% accuracy.
 - It uses far fewer parameters thanks to convolutional weight sharing.
 - CNNs are translation invariant and better at recognizing spatial patterns.
 - LeNet-5 was the starting point for many modern CNNs like AlexNet, VGG, Inception, and ResNet.
 
-## 8. Conclusion & Next Steps
+## 7. Conclusion & Next Steps
 
 We built and trained a **LeNet-5 model** for MNIST classification. It achieves ~99% accuracy, demonstrating the power of convolutional networks for image tasks.
 
