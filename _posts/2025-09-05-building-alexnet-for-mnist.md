@@ -63,7 +63,7 @@ AlexNet is deeper and larger than LeNet-5. It has **5 convolutional layers** and
 - **GPU training** for scalability.  
 
 
-Originally, AlexNet was trained on **224x224 RGB images** from ImageNet, which is much larger and more complex than MNIST (28x28 grayscale). We'll adapt the architecture accordingly.
+Originally, AlexNet was trained on **224x224 RGB images** from ImageNet, which is much larger and more complex than FashionMNIST (28x28 grayscale). We'll adapt the architecture accordingly.
 
 ## 3. AlexNet Model Implementation
 
@@ -331,4 +331,4 @@ In the next post, we’ll explore **VGG**, which simplified CNN design with stac
 
 Stay tuned for the next article in the **Classic CNNs** series!
 
-[GitHub Code](https://github.com/derekzhouai/derekzhou-ai-blog-code/blob/main/mnist_alexnet.ipynb)
+[GitHub Code](https://github.com/derekzhouai/derekzhou-ai-blog-code/blob/main/cnn_alexnet.ipynb)
