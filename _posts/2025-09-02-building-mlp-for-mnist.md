@@ -1,7 +1,7 @@
 ---
 title:  "Building a Simple MLP for MNIST Classification"
 date:   2025-09-02 10:00:00 +0800
-categories: [Neural Networks on MNIST]
+categories: [MLP]
 tags: [mlp, mnist]
 math: true
 ---
